@@ -16,10 +16,6 @@ Kepler IP(Default): 29721
 
 &nbsp;
 
-#### ROS Interface Module Data flowchart
-
-![](../images/flowchart.png)  
-
 
 &nbsp;  
 &nbsp;
