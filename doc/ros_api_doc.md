@@ -14,10 +14,7 @@ Kepler IP(Default): 192.168.1.20
 Kepler IP(Default): 29721
 &nbsp;
 
-&nbsp;
 
-
-&nbsp;  
 &nbsp;
 
 #### ROS topic 사용 예제
