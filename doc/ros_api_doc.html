@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ros_api_doc.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="polaris3d-kepler-ros-guide">Polaris3d Kepler ROS Guide</h1>
+<p>Polaris3d Kepler를 ROS 환경에서 사용하는 유저 가이드 문서입니다.
+Kepler 데이터로 ROS 기반 어플리케이션을 개발할 때 사용할 수 있는 topic 목록과 설명 등을 제공합니다.
+ </p>
+<h2 id="%EA%B0%9C%EC%9A%94">개요</h2>
+<h4 id="ros-network-configuration">ROS Network Configuration</h4>
+<p> 
+Kepler IP(Default): 192.168.1.20</p>
+<p> 
+Kepler IP(Default): 29721
+ </p>
+<p> </p>
+<h4 id="ros-topic-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C">ROS topic 사용 예제</h4>
+<p>본 문서는 ROS 사용에 대한 이해가 있다는 전제 하에 작성되었습니다.<br>
+ROS 사용이 익숙하지 않으시다면, 아래 가이드 문서를 참고해주세요.</p>
+<h5 id="ros-guidekorean">- ROS Guide(Korean)</h5>
+<p>[http://wiki.ros.org/ko/ROS/Tutorials]</p>
+<h5 id="ros-guideenglish">- ROS Guide(English)</h5>
+<p>[http://wiki.ros.org/ROS/Tutorials]</p>
+<p> </p>
+<h2 id="ros-publish-topic-%EB%B6%84%EB%A5%98">ROS Publish Topic 분류</h2>
+<p>Kepler가 게시하는 topic들의 분류는 다음과 같습니다.</p>
+<p> </p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#sensor">Sensor</a></td>
+<td>Kepler가 제공하는 Sensor 데이터들입니다.</td>
+</tr>
+<tr>
+<td><a href="#sstimation">Estimation</a></td>
+<td>Kepler가 사용하는 센서들로부터 추정한 데이터들입니다.</td>
+</tr>
+<tr>
+<td><a href="#actuator">Actuator</a></td>
+<td>Kepler에서 동작하는 Actuator 데이터들입니다.</td>
+</tr>
+<tr>
+<td><a href="#envrionment">Envrionment</a></td>
+<td>Kepler 상태에 대한 부가 정보입니다.</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<h2 id="ros-subscriber-topic-%EB%B6%84%EB%A5%98">ROS Subscriber Topic 분류</h2>
+<p>Kepler가 구독하는 topic들의 분류는 다음과 같습니다.</p>
+<p> </p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#control">Control</a></td>
+<td>로봇 수동 조작을 위해 구독하는 데이터들입니다.</td>
+</tr>
+<tr>
+<td><a href="#planning">Planning</a></td>
+<td>주어진 좌표 간 로컬 경로를 생성하기 위해 구독하는 데이터들입니다.</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<h2 id="ros-topic-%EB%AA%A9%EB%A1%9D">ROS Topic 목록</h2>
+<p>Kepler가 게시 및 구독하는 topic들에 대한 정보입니다. rostopic list 명령어로 활성화된 topic 목록을 확인할 수 있습니다.</p>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Message type</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#lidar-(/ouster/scan_cloud)">/ouster/scan_cloud</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+<td>Ouster Lidar의 scan 데이터에서 point들의 x,y,z 좌표를 게시합니다.</td>
+</tr>
+<tr>
+<td><a href="#realsense-camera(/realsense/depth_cloud)">/realsense/depth_cloud</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+<td>RealSense Camera Depth Point들의 x,y,z 좌표를 게시합니다. 이 데이터는 480x270 해상도로 조절된 값입니다.</td>
+</tr>
+<tr>
+<td><a href="#imu-(/imu)">/imu</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/Imu.html">sensor_msgs/Imu</a></td>
+<td>Imu 센서가 측정한 데이터를 게시합니다.</td>
+</tr>
+<tr>
+<td><a href="#sonar-(/sonar)">/sonar</a></td>
+<td><a href="http://docs.ros.org/en/fuerte/api/sensor_msgs/html/msg/Range.html">sensor_msgs/Range</a></td>
+<td>Sonar 센서가 측정한 거리(cm) 데이터를 게시합니다.</td>
+</tr>
+<tr>
+<td><a href="#odometry-(/odom)">/odom</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/nav_msgs/html/msg/Odometry.html">nav_msgs/Odometry</a></td>
+<td>Lidar, Imu, Encoder 로부터 추정한 odometry 데이터를 게시합니다.</td>
+</tr>
+<tr>
+<td><a href="#current-position-(/pose)">/pose</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/PoseStamped.html">geometry_msgs/PoseStamped</a></td>
+<td>Lidar 데이터로부터 로봇의 현재 위치를 추정해 게시합니다.</td>
+</tr>
+<tr>
+<td><a href="#map-(/map)">/map</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+<td>현재 사용자가 선택한 지도 데이터를 불러와 게시합니다.</td>
+</tr>
+<tr>
+<td><a href="#local-path-(/local_path)">/local_path</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/PoseArray.html">geometry_msgs/PoseArray</a></td>
+<td>local planning의 결과 경로를 게시합니다.</td>
+</tr>
+<tr>
+<td><a href="#command-status-(/command_status)">/command_status</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/std_msgs/html/msg/String.html">std_msgs/String</a></td>
+<td>로봇이 받은 명령 상태 정보를 게시합니다.</td>
+</tr>
+<tr>
+<td><a href="#command-velocity-(/cmd_vel)">/cmd_vel</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/Twist.html">geometry_msgs/Twist</a></td>
+<td>로봇 모터로부터 얻은 현재 cmd_velocity 데이터를 발행합니다.</td>
+</tr>
+<tr>
+<td><a href="#marker-feedback(/marker/feedback/position)">/marker/feedback/position</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/Point.html">geometry_msgs/Point</a></td>
+<td>Marker 인식 결과 얻은 위치 정보를 x,y,z 좌표로 게시합니다.</td>
+</tr>
+<tr>
+<td><a href="#global-path-(/global_path)">/global_path</a></td>
+<td><a href="http://docs.ros.org/en/fuerte/api/nav_msgs/html/msg/Path.html">nav_msgs/Path</a></td>
+<td>Local Planning을 수행하기 위한 전역 경로 좌표를 구독합니다.</td>
+</tr>
+<tr>
+<td><a href="#manual-wheel-control-(/wheel/manual_ctrl)">/wheel/manual_ctrl</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/Twist.html">geometry_msgs/Twist</a></td>
+<td>로봇 수동 조작 신호를 따르기 위해 cmd_velocity 데이터를 구독합니다.</td>
+</tr>
+<tr>
+<td><a href="#manual-lift-control-(/lift/manual_ctrl)">/lift/manual_ctrl</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/std_msgs/html/msg/Float32.html">std_msgs/Float32</a></td>
+<td>수동 Lift 조작 신호를 따르기 위한 거리(cm) 데이터를 구독합니다.</td>
+</tr>
+<tr>
+<td><a href="#manual-linear-guide-control-(/linear_guide/manual_ctrl)">/linear_guide/manual_ctrl</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/std_msgs/html/msg/Float32.html">std_msgs/Float32</a></td>
+<td>수동 Linear Guide 조작 신호를 따르기 위한 거리(cm) 데이터를 구독합니다.</td>
+</tr>
+<tr>
+<td><a href="#manual-suction-control-(/suction/manual_ctrl)">/suction/manual_ctrl</a></td>
+<td><a href="http://docs.ros.org/en/melodic/api/std_msgs/html/msg/Float32.html">std_msgs/Float32</a></td>
+<td>수동 Suction 조작 신호를 따르기 위한 흡입 강도 데이터를 구독합니다.</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<h1 id="sensor">Sensor</h1>
+<p>Kepler가 사용 중인 Sensor 데이터들은 크게 Lidar, Realsense Camera, Sonar, Imu 등이 있습니다. 센서 종료는 Kepler 버전에 따라 달라질 수 있습니다.
+ </p>
+<h3 id="lidar-ousterscancloud">Lidar (/ouster/scan_cloud)</h3>
+<p><em>Ouster Lidar에서 얻은 scan 데이터의 x,y,z 좌표 정보들을 sensor_msgs/PointCloud2 타입으로 게시합니다. Kepler 기준 좌표축으로 변환한 데이터입니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic echo /ouster/scan_cloud
+
+#print example
+header: 
+  seq: 1616
+  stamp: 
+    secs: 0
+    nsecs: 0
+  frame_id: &quot;map&quot;
+height: 1
+width: 2214
+fields: 
+  - 
+    name: &quot;x&quot;
+    offset: 0
+    datatype: 7
+    count: 1
+  - 
+    name: &quot;y&quot;
+    offset: 4
+    datatype: 7
+    count: 1
+  - 
+    name: &quot;z&quot;
+    offset: 8
+    datatype: 7
+    count: 1
+is_bigendian: False
+point_step: 12
+row_step: 26568
+data: [16, 123, 129, ... 0, 342, 174]
+is_dense: False
+</div></code></pre>
+<h3 id="realsense-camera-realsensedepthcloud">RealSense Camera (/realsense/depth_cloud)</h3>
+<p><em>Realsense Cameara에서 얻은 point cloud 데이터의 x,y,z 좌표 정보들을 sensor_msgs/PointCloud2 타입으로 게시합니다. Kepler 기준 좌표축으로 변환한 데이터입니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic echo /realsense/depth_cloud
+
+#print example
+header: 
+  seq: 1616
+  stamp: 
+    secs: 0
+    nsecs: 0
+  frame_id: &quot;map&quot;
+height: 1
+width: 5400
+fields: 
+  - 
+    name: &quot;x&quot;
+    offset: 0
+    datatype: 7
+    count: 1
+  - 
+    name: &quot;y&quot;
+    offset: 4
+    datatype: 7
+    count: 1
+  - 
+    name: &quot;z&quot;
+    offset: 8
+    datatype: 7
+    count: 1
+is_bigendian: False
+point_step: 12
+row_step: 26568
+data: [56, 223, 13, ... 0, 0, 0]
+is_dense: False
+</div></code></pre>
+<h3 id="imu-imu">Imu (/imu)</h3>
+<p><em>Imu에서 얻은 데이터를 sensor_msgs/Imu 타입으로 게시합니다. Kepler 기준 좌표축으로 변환한 데이터입니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic echo /imu
+
+#print example
+header: 
+  seq: 4243
+  stamp: 
+    secs: 527
+    nsecs: 116716464
+  frame_id: &quot;map&quot;
+orientation: 
+  x: 0.0
+  y: 0.0
+  z: 0.0
+  w: 0.0
+orientation_covariance: [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]
+angular_velocity: 
+  x: -0.000956347677857
+  y: -0.000509549863636
+  z: -0.00109129492193
+angular_velocity_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+linear_acceleration: 
+  x: 0.00591037096456
+  y: -0.231394946575
+  z: 9.99276256561
+linear_acceleration_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+</div></code></pre>
+<h3 id="sonar-sonar">Sonar (/sonar)</h3>
+<p><em>Sonar에서 얻은 거리 데이터를 sensor_msgs/Range 타입으로 게시합니다. 단위는 cm입니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>blarblar...
+</div></code></pre>
+<p> </p>
+<hr>
+<p> </p>
+<h1 id="estimation">Estimation</h1>
+<p>Kepler는 Sensor 데이터들로부터 추정한 유용한 데이터들을 제공합니다. 각 정보는 Odometry, Current Position 등입니다.
+ </p>
+<h3 id="odometry-odom">Odometry (/odom)</h3>
+<p><em>Kepler가 사용하는 각종 센서들로부터 추정한 로봇의 odometry 정보입니다. nav_msgs/Odometry 타입으로 게시합니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic echo /odom
+
+#print example
+header: 
+  seq: 99
+  stamp: 
+    secs: 0
+    nsecs: 0
+  frame_id: 'map'
+child_frame_id: 'map'
+pose: 
+  pose: 
+    position: 
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    orientation: 
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 0.0
+  covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+twist: 
+  twist: 
+    linear: 
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    angular: 
+      x: 0.0
+      y: 0.0
+      z: 0.0
+  covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+</div></code></pre>
+<h3 id="current-position-pose">Current Position (/pose)</h3>
+<p><em>전역 지도에서 Kepler가 추정한 로봇의 현재 위치 정보입니다. geometry_msgs/PoseStamped 타입으로 게시합니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic echo /pose
+
+#print example
+header: 
+  seq: 41
+  stamp: 
+    secs: 0
+    nsecs: 0
+  frame_id: &quot;map&quot;
+pose: 
+  position: 
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  orientation: 
+    x: -0.0121852047741
+    y: -0.00152712513227
+    z: -0.00302079459652
+    w: 0.999920010567
+
+</div></code></pre>
+<h3 id="map-map">map (/map)</h3>
+<p><em>사용자가 선택한 전역 지도 정보입니다. sensor_msgs/PointCloud2  타입으로 게시합니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic echo /map
+
+#print example
+header: 
+  seq: 1616
+  stamp: 
+    secs: 0
+    nsecs: 0
+  frame_id: &quot;map&quot;
+height: 1
+width: 2214
+fields: 
+  - 
+    name: &quot;x&quot;
+    offset: 0
+    datatype: 7
+    count: 1
+  - 
+    name: &quot;y&quot;
+    offset: 4
+    datatype: 7
+    count: 1
+  - 
+    name: &quot;z&quot;
+    offset: 8
+    datatype: 7
+    count: 1
+is_bigendian: False
+point_step: 12
+row_step: 26568
+data: [456, 344, 229, ... 323, 222, 113]
+is_dense: False
+</div></code></pre>
+<h3 id="local-path-localpath">Local path (/local_path)</h3>
+<p><em>Kepler가 현재 지도를 바탕으로 path planning해 구한 local planning의 결과를 경로로 나타낸 정보입니다. geometry_msgs/PoseArray 타입으로 게시합니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic echo /local_path
+
+#print example
+header: 
+  seq: 194
+  stamp: 
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+poses: 
+  - 
+    position: 
+      x: -0.0619981922209
+      y: -0.211999684572
+      z: 0.0
+    orientation: 
+      x: -37.4119987488
+      y: 5.63800048828
+      z: -0.687827169895
+      w: 0.72587454319
+  - 
+  ...
+  - 
+    position: 
+      x: -0.0619981922209
+      y: -0.211999684572
+      z: 0.0
+    orientation: 
+      x: -37.4119987488
+      y: 5.63800048828
+      z: 0.930579006672
+      w: -0.366091132164
+
+</div></code></pre>
+<p> </p>
+<hr>
+<p> </p>
+<h1 id="actuator">Actuator</h1>
+<p>Kepler Actuator들은 cmd_velocity, Marker 인식 feedback 정보들을 제공합니다.
+ </p>
+<h3 id="command-velocity-cmdvel">Command Velocity (/cmd_vel)</h3>
+<p><em>로봇 모터로부터 얻은 선속도와 각속도 정보입니다. geometry_msgs/Twist 타입으로 게시합니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic echo /cmd_vel
+
+#print example
+linear: 
+  x: 0.300000011921
+  y: -0.089333333075
+  z: 0.0
+angular: 
+  x: 0.0
+  y: 0.0
+  z: -0.0
+
+</div></code></pre>
+<h3 id="marker-feedback-markerfeedbackposition">Marker Feedback (/marker/feedback/position)</h3>
+<p><em>Marker 인식 결과 얻은 feedback 데이터들 중 marker position에 대한 정보입니다. geometry_msgs/Point 타입으로 게시합니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic echo /marker/feedback/position
+
+#print example
+x: 0.2
+y: 2.2
+z: 0.0
+</div></code></pre>
+<p> </p>
+<hr>
+<p> </p>
+<h1 id="environment">Environment</h1>
+<p>Kepler의 명령 입력 상태 등을 제공합니다.
+ </p>
+<h3 id="command-status-commandstatus">Command Status (/command_status)</h3>
+<p><em>각종 명령 입력 상태에 대한 정보를 게시합니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>data: &quot;Status: AUTO_DRIVING&quot;
+</div></code></pre>
+<p> </p>
+<hr>
+<p> </p>
+<h1 id="control">Control</h1>
+<p>사용자가 수동 조작으로 로봇 및 각종 Acutuator를 제어할 수 있도록 관련 데이터를 구독합니다.
+ </p>
+<h3 id="manual-wheel-control-wheelmanualctrl">Manual Wheel Control (/wheel/manual_ctrl)</h3>
+<p><em>로봇 수동 조작을 위한 선속도, 각속도 값을 구독합니다. 메세지 타입은 geometry_msgs/Twist입니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>blarblar...
+</div></code></pre>
+<h3 id="manual-lift-control-liftmanualctrl">Manual Lift Control (/lift/manual_ctrl)</h3>
+<p><em>Lift 수동 조작을 위한 이동 거리 값을 구독합니다. 단위는 cm이며, 메세지 타입은 std_msgs/Float32입니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>blarblar...
+</div></code></pre>
+<h3 id="manual-linear-guide-control-linearguidemanualctrl">Manual Linear Guide Control (/linear_guide/manual_ctrl)</h3>
+<p><em>Linear Guide 수동 조작을 위한 이동 거리 값을 구독합니다. 단위는 cm이며, 메세지 타입은 std_msgs/Float32입니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>blarblar...
+</div></code></pre>
+<h3 id="manual-suction-control-suctionmanualctrl">Manual Suction Control (/suction/manual_ctrl)</h3>
+<p><em>Suction 수동 조작을 위한 흡입 강도 값을 구독합니다. 메세지 타입은 std_msgs/Float32입니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>blarblar...
+</div></code></pre>
+<p> </p>
+<hr>
+<p> </p>
+<h1 id="planning">Planning</h1>
+<p>사용자가 수동 조작으로 로봇 및 각종 Acutuator를 제어할 수 있도록 관련 데이터를 구독합니다.
+ </p>
+<h3 id="global-path-globalpath">Global Path (/global_path)</h3>
+<p><em>로봇 전역 경로 데이터를 구독합니다. 구독한 전역 경로로부터 자율 주행 경로를 로컬 경로로 생성합니다. 데이터 타입은 nav_msgs/Path입니다.</em></p>
+<h5 id="example">Example</h5>
+<pre class="hljs"><code><div>$ rostopic pub /global_path nav_msgs/Path '{header: {stamp: now, frame_id: &quot;map&quot;}, 
+ poses: [header: {stamp: now, frame_id: &quot;map&quot;}, 
+         pose : {position: {x: 0.3, y: 0.1, z: 0}, orientation : {x: 0.1, y: 0, z: 0, w: 0.2}}
+         ,
+         header: {stamp: now, frame_id: &quot;map&quot;}, 
+         pose : {position: {x: 0.3, y: 0.1, z: 0}, orientation : {x: 0.1, y: 12, z: 0, w: 0.2}}
+        ]
+}'
+</div></code></pre>
+
+</body>
+</html>
